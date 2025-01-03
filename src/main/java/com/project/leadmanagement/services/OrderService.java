@@ -23,19 +23,17 @@ public class OrderService {
     private LeadRepository leadRepository;
 
     public Order createOrder(CreateOrderRequest orderRequest) {
-        // Fetch the lead
+
         Optional<LeadEntry> leadOptional = leadRepository.findById(orderRequest.getLeadId());
         if (leadOptional.isEmpty()) {
             throw new EntityNotFoundException("Lead not found for ID: " + orderRequest.getLeadId());
         }
 
         LeadEntry leadEntry = leadOptional.get();
-
-        // Create and save the order
         Order order = new Order();
         order.setAmount(orderRequest.getOrderAmount());
         order.setOrderDate(orderRequest.getOrderDate());
-        order.setLeadEntry(leadEntry); // Link order to the lead
+        order.setLeadEntry(leadEntry);
 
         return orderRepository.save(order);
     }

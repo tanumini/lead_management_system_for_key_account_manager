@@ -11,17 +11,14 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        // Configure HTTP security
         http
                 .authorizeRequests()
-                .requestMatchers("/api/**").permitAll()  // Allow access to public API endpoints
-                .anyRequest().authenticated()  // Require authentication for all other endpoints
+                .requestMatchers("/api/**").permitAll()
+                .anyRequest().authenticated()
                 .and()
-                // Disable CSRF protection if not required (common in REST APIs)
                 .csrf().disable()
-                // Disable Basic Authentication if not required
                 .httpBasic().disable()
-                .formLogin().disable();  // Optional: Disable form login if not required
+                .formLogin().disable();
 
         return http.build();
     }

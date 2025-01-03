@@ -27,18 +27,18 @@ public class InteractionService {
     private LeadRepository leadRepository;
     public Interaction addInteraction(Interaction interaction, Long leadId, Long restaurantId) {
 
-            // Fetch the associated Lead
+
             LeadEntry lead = leadRepository.findById(leadId)
                     .orElseThrow(() -> new EntityNotFoundException("Lead not found for ID: " + leadId));
 
-            // Fetch the associated Restaurant
+
             Restaurant restaurant = restaurantRepository.findById(restaurantId)
                     .orElseThrow(() -> new EntityNotFoundException("Restaurant not found for ID: " + restaurantId));
 
-            // Set the relationships
+
             interaction.setLead(lead);
             interaction.setRestaurant(restaurant);
-            // Save the Interaction
+
             return interactionRepository.save(interaction);
     }
 
@@ -51,8 +51,8 @@ public class InteractionService {
     }
 
     public List<Interaction> getTodayCalls() {
-        // Placeholder logic to fetch today's calls (to be implemented)
-        return interactionRepository.findTodayCalls();  // You can implement a query for today's calls here
+
+        return interactionRepository.findTodayCalls();
     }
     private LocalDate convertToLocalTime(LocalDate utcDate, String timezone) {
         if (timezone != null) {

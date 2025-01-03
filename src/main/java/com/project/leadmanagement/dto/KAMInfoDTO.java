@@ -9,7 +9,6 @@ public class KAMInfoDTO {
     private List<Long> leadEntryIds;
     private List<Long> restaurantIds;
 
-    // Constructor
     public KAMInfoDTO(Long kamId, String kamName, String kamEmail, List<Long> leadEntryIds, List<Long> restaurantIds) {
         this.kamId = kamId;
         this.kamName = kamName;
@@ -18,7 +17,6 @@ public class KAMInfoDTO {
         this.restaurantIds = restaurantIds;
     }
 
-    // Getters and Setters
     public Long getKamId() {
         return kamId;
     }

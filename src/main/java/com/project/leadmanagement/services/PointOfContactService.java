@@ -36,9 +36,9 @@ public class PointOfContactService {
         PointOfContact poc = pointOfContactRepository.findById(pocId)
                 .orElseThrow(() -> new EntityNotFoundException("POC not found with id: " + pocId));
 
-        poc.setRestaurant(restaurant); // Assign the restaurant to the POC
-        pointOfContactRepository.save(poc); // Persist the changes
+        poc.setRestaurant(restaurant);
+        pointOfContactRepository.save(poc);
 
-        return restaurant; // Return the updated restaurant
+        return restaurant;
     }
 }

@@ -60,15 +60,13 @@ public class RestaurantController {
     }
     @GetMapping("/{restaurantId}/orders")
     public List<Order> getOrdersForRestaurant(@PathVariable Long restaurantId) {
-        // Fetch all leads for the restaurant
+
         List<LeadEntry> leads = restaurantService.getLeadsForRestaurant(restaurantId);
 
-        // Create a list to store all orders
         List<Order> orders = new ArrayList<>();
 
-        // Loop through all the leads and get their orders
         for (LeadEntry lead : leads) {
-            orders.addAll(lead.getOrders()); // Assuming 'getOrders()' returns a list of orders
+            orders.addAll(lead.getOrders());
         }
 
         return orders;

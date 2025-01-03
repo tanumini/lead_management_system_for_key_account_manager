@@ -51,7 +51,6 @@ public class LeadService {
         LeadEntry lead = leadRepository.findById(leadId)
                 .orElseThrow(() -> new EntityNotFoundException("Lead not found with ID: " + leadId));
 
-//        lead.setKam(kam);
         return leadRepository.save(lead);
     }
 
@@ -64,7 +63,7 @@ public class LeadService {
 
     private boolean isLeadDueForCall(LeadEntry lead, LocalDate today) {
         if (lead.getCallFrequency() == null || lead.getLastCallDate() == null) {
-            return false; // No frequency or last call date set
+            return false;
         }
 
         switch (lead.getCallFrequency()) {
@@ -86,7 +85,6 @@ public class LeadService {
         leadRepository.save(lead);
     }
 
-    // Method to track well-performing leads
     public List<LeadEntry> getWellPerformingLeads() {
         return leadRepository.findAll().stream()
                 .filter(lead -> isPerformingWell(lead))
@@ -94,30 +92,28 @@ public class LeadService {
     }
 
     private boolean isPerformingWell(LeadEntry lead) {
-        // Calculate total revenue for the lead
         double totalRevenue = lead.getOrders().stream()
-                .mapToDouble(Order::getAmount) // Assuming `Order` has `getOrderAmount()`
+                .mapToDouble(Order::getAmount)
                 .sum();
 
-        // Define performance criteria, e.g., order count or revenue thresholds
-        return lead.getOrders().size() > 5 && totalRevenue > 1000; // Example criteria
+
+        return lead.getOrders().size() > 5 && totalRevenue > 1000;
     }
 
-    // Method to track underperforming leads
+
     public List<LeadEntry> getUnderperformingLeads() {
         return leadRepository.findAll().stream()
-                .filter(this::isUnderperforming) // Use method reference
+                .filter(this::isUnderperforming)
                 .collect(Collectors.toList());
     }
 
     private boolean isUnderperforming(LeadEntry lead) {
-        // Calculate total revenue for the lead
+
         double totalRevenue = lead.getOrders().stream()
-                .mapToDouble(Order::getAmount) // Assuming `Order` has `getOrderAmount()`
+                .mapToDouble(Order::getAmount)
                 .sum();
 
-        // Define underperformance criteria, e.g., low order count or low revenue
-        return lead.getOrders().size() < 2 || totalRevenue < 500; // Example criteria
+        return lead.getOrders().size() < 2 || totalRevenue < 500;
     }
 
     public LocalDate getLastCallDate(Long leadId) {
@@ -127,16 +123,15 @@ public class LeadService {
         }
 
         LeadEntry lead = leadOptional.get();
-        return lead.getLastCallDate(); // Return the last call date
+        return lead.getLastCallDate();
     }
 
     public List<Interaction> getCallsForLead(Long leadId) {
-        // Find the lead by its ID
         LeadEntry leadEntry = leadRepository.findById(leadId)
                 .orElseThrow(() -> new EntityNotFoundException("Lead not found with ID: " + leadId));
 
-        // Return the list of interactions (calls) for this lead
-        return interactionRepository.findByLeadEntry(leadEntry); // Assuming this query is defined in InteractionRepository
+
+        return interactionRepository.findByLeadEntry(leadEntry);
     }
 
     public LeadEntry updateCallFrequency(Long id, String cf) {

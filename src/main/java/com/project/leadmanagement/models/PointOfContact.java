@@ -17,9 +17,9 @@ public class PointOfContact {
     @ManyToOne
     @JoinColumn(name = "restaurant_id")
     @JsonBackReference("restaurant-poc")
-    private Restaurant restaurant; // Each POC is related to a specific restaurant
+    private Restaurant restaurant;
 
-    // Getters and Setters
+
     public Long getId() {
         return id;
     }

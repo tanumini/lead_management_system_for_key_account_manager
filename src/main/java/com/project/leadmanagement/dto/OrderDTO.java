@@ -16,7 +16,6 @@ public class OrderDTO {
         this.amount = order.getAmount();
     }
 
-    // Getters and Setters
     public Long getId() {
         return id;
     }

@@ -34,7 +34,6 @@ public class LeadController {
     @PostMapping
     public LeadEntry addLead(@RequestBody LeadEntry leadEntry) {
 
-        // Fetch the Restaurant entity using the restaurantId from the request
         Optional<Restaurant> restaurantOptional = restaurantRepository.findById(leadEntry.getRestaurant().getId());
         if (restaurantOptional.isEmpty()) {
             throw new EntityNotFoundException("Restaurant not found for ID: " + leadEntry.getRestaurant().getId());
@@ -42,13 +41,11 @@ public class LeadController {
         Restaurant restaurant = restaurantOptional.get();
         leadEntry.setRestaurant(restaurant);
 
-        // Save the LeadEntry (ensure to save it with the correct associations)
         return leadService.addLead(leadEntry);
     }
     @GetMapping("/{leadId}")
     public LeadEntryDTO getLeadById(@PathVariable Long leadId) {
         Optional<LeadEntry> leadEntry = leadService.getLeadById(leadId);
-        //return Optional.ofNullable(leadEntry).map(LeadEntryDTO::new);
         LeadEntry entry = leadEntry.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Lead not found"));
        return new LeadEntryDTO(entry);
     }
@@ -59,9 +56,8 @@ public class LeadController {
         Optional<LeadEntry> leadEntryOptional = leadService.getLeadById(leadId);
         LeadEntry leadEntry = leadEntryOptional.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Lead not found"));
 
-        // Map orders to OrderDTO and return the list
         return leadEntry.getOrders().stream()
-                .map(OrderDTO::new)  // Convert each Order to OrderDTO
+                .map(OrderDTO::new)
                 .collect(Collectors.toList());
     }
 
@@ -82,41 +78,37 @@ public class LeadController {
         return leadService.updateCallFrequency(id, callFrequency);
     }
 
-    // Endpoint to get leads requiring a call today
     @GetMapping("/requiring-call-today")
     public List<LeadEntry> getLeadsRequiringCallToday() {
         return leadService.getLeadsRequiringCallToday();
     }
 
-    // Endpoint to update the last call date
     @PutMapping("/{leadId}/update-call-date")
     public void updateLastCallDate(@PathVariable Long leadId) {
         leadService.updateLastCallDate(leadId);
     }
 
-    // Endpoint to get well-performing leads
     @GetMapping("/well-performing")
     public List<LeadEntry> getWellPerformingLeads() {
         return leadService.getWellPerformingLeads();
     }
 
-    // Endpoint to get underperforming leads
+
     @GetMapping("/underperforming")
     public List<LeadEntry> getUnderperformingLeads() {
         return leadService.getUnderperformingLeads();
     }
 
-    // Endpoint to get the last call date for a lead
+
     @GetMapping("/{leadId}/last-call")
     public LocalDate getLastCallDate(@PathVariable Long leadId) {
         return leadService.getLastCallDate(leadId);
     }
     @GetMapping("/{leadId}/calls")
     public List<Interaction> getAllCallsForLead(@PathVariable Long leadId) {
-        // Fetch all interactions or calls for the given lead
+
         List<Interaction> interactions = leadService.getCallsForLead(leadId);
 
-        // Return the list of calls
         return interactions;
     }
 }

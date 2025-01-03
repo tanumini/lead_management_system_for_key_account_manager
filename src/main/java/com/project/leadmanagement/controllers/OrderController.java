@@ -31,6 +31,3 @@ public class OrderController {
     }
 
     }
-
-
-// DTO for the request body

@@ -12,15 +12,15 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private LocalDate orderDate; // Date the order was placed
-    private Double amount;       // Total order amount
+    private LocalDate orderDate;
+    private Double amount;
 
     @ManyToOne
     @JoinColumn(name = "lead_entry_id")
     @JsonBackReference
-    private LeadEntry leadEntry; // Link each order to a lead
+    private LeadEntry leadEntry;
 
-    // Getters and Setters
+
     public Long getId() {
         return id;
     }

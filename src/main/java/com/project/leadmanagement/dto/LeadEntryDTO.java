@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 public class LeadEntryDTO {
     private Long id;
     private String status;
-    private Long restaurantId; // Only restaurantId instead of the full Restaurant object
+    private Long restaurantId;
     private CallFrequency callFrequency;
     private LocalDate lastCallDate;
     private List<Long> orders;
@@ -29,7 +29,6 @@ public class LeadEntryDTO {
                 .collect(Collectors.toList());
     }
 
-    // Getters and Setters
 
     public Long getId() {
         return id;

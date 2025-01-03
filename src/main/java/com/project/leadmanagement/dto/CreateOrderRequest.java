@@ -7,7 +7,6 @@ public class CreateOrderRequest {
     private double orderAmount;
     private LocalDate orderDate;
 
-    // Getters and Setters
     public Long getLeadId() {
         return leadId;
     }

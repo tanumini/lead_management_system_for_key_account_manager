@@ -33,9 +33,8 @@ public class Restaurant {
     @ManyToOne
     @JoinColumn(name = "kam_id", nullable = true)
     @JsonBackReference("restaurant-kam")
-    private KAM kam; // A restaurant is managed by one KAM
+    private KAM kam;
 
-    // Getters and Setters
 
     public List<LeadEntry> getLeads() {
         return leadEntries;

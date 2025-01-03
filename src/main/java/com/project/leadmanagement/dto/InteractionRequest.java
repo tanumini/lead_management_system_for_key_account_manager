@@ -11,7 +11,6 @@ public class InteractionRequest {
     private String notes;
     private Long leadId;
     private Long restaurantId;
-    // Getters and Setters
 
     public LocalDate getInteractionDate() {
         return interactionDate;
@@ -58,8 +57,6 @@ public class InteractionRequest {
         interaction.setInteractionDate(interactionDate);
         interaction.setInteractionType(interactionType);
         interaction.setNotes(notes);
-        // Convert the interaction date to UTC if the timezone is provided
-
 
         return interaction;
     }

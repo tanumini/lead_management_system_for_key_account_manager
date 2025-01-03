@@ -45,10 +45,10 @@ public class RestaurantService {
         if (restaurantOptional.isPresent()) {
             Restaurant restaurant = restaurantOptional.get();
 
-            // Assuming restaurant has a List<Lead> called 'leads'
+
             for (LeadEntry leadEntry : restaurant.getLeads()) {
                 leadEntry.setStatus(leadStatus);
-                leadRepository.save(leadEntry);  // Save each updated lead
+                leadRepository.save(leadEntry);
             }
             return restaurant;
         }
@@ -58,17 +58,17 @@ public class RestaurantService {
         Restaurant restaurant = restaurantRepository.findById(restaurantId)
                 .orElseThrow(() -> new EntityNotFoundException("Restaurant not found with id: " + restaurantId));
 
-        // Fetch the lead
+
         LeadEntry lead = leadRepository.findById(leadId)
                 .orElseThrow(() -> new EntityNotFoundException("Lead not found with id: " + leadId));
 
-        // Set the restaurant for the lead, but avoid duplication
+
         if (lead.getRestaurant() == null || !lead.getRestaurant().equals(restaurant)) {
             lead.setRestaurant(restaurant);
             leadRepository.save(lead);
         }
 
-        // Add the lead to the restaurant's lead list if not already present
+
         if (!restaurant.getLeads().contains(lead)) {
             restaurant.getLeads().add(lead);
             restaurantRepository.save(restaurant);
@@ -81,19 +81,19 @@ public class RestaurantService {
         Restaurant restaurant = restaurantRepository.findById(restaurantId)
                 .orElseThrow(() -> new EntityNotFoundException("Restaurant not found with id: " + restaurantId));
 
-        // Fetch the POC
+
         PointOfContact poc = pocRepository.findById(pocId)
                 .orElseThrow(() -> new EntityNotFoundException("POC not found with id: " + pocId));
 
-        // Set the restaurant for the POC
+
         poc.setRestaurant(restaurant);
 
-        // Ensure the restaurant's POC list contains the updated POC
+
         if (!restaurant.getPointOfContacts().contains(poc)) {
             restaurant.getPointOfContacts().add(poc);
         }
 
-        // Save both entities to persist the changes
+
         pocRepository.save(poc);
         restaurantRepository.save(restaurant);
 

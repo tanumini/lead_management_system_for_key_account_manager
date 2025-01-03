@@ -17,9 +17,9 @@ public class KAM {
 
     @OneToMany(mappedBy = "kam")
     @JsonManagedReference("restaurant-kam")
-    private List<Restaurant> restaurants; // A KAM can be associated with multiple restaurants
+    private List<Restaurant> restaurants;
 
-    // Getters and Setters
+
     public Long getId() {
         return id;
     }

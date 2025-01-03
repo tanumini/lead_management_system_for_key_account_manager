@@ -14,21 +14,19 @@ public class Interaction {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(name = "interaction_date")
-    private LocalDate interactionDate;  // Date and time of the interaction
-    private String interactionType; // Type of interaction (e.g., Call, Email, Order)
-    private String notes;  // Additional notes or details about the interaction
-
+    private LocalDate interactionDate;
+    private String interactionType;
+    private String notes;
     @ManyToOne
     @JoinColumn(name = "lead_id")
     @JsonBackReference
-    private LeadEntry leadEntry; // Each interaction is linked to a specific lead
+    private LeadEntry leadEntry;
 
     @ManyToOne
     @JoinColumn(name = "restaurant_id")
     @JsonBackReference("restaurant-interaction")
-    private Restaurant restaurant; // Each interaction is linked to a specific restaurant
+    private Restaurant restaurant;
 
-    // Getters and Setters
     public Long getId() {
         return id;
     }
